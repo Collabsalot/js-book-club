@@ -1,0 +1,17 @@
+{
+  "name": "js-book-club",
+  "private": true,
+  "homepage": "https://github.com/MartinRosenberg/js-book-club#readme",
+  "bugs": {
+    "url": "https://github.com/MartinRosenberg/js-book-club/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartinRosenberg/js-book-club.git"
+  },
+  "license": "GPL-3.0-or-later",
+  "author": "Martin Rosenberg <Martin.B.Rosenberg@gmail.com> (https://martinbrosenberg.com)",
+  "scripts": {
+    "test": "echo 'Error: no test specified' && exit 1"
+  }
+}
