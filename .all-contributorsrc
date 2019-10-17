@@ -28,6 +28,33 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "BadrChoubai",
+      "name": "Badr Choubai",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/32343041?v=4",
+      "profile": "https://www.badrchoubai.dev",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "code-ack",
+      "name": "code-ack",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/54593149?v=4",
+      "profile": "https://github.com/code-ack",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "andy-young",
+      "name": "Andy Young",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/10835135?v=4",
+      "profile": "http://atydev.com",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7
