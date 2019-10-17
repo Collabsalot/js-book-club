@@ -14,10 +14,13 @@ module.exports = {
     SharedArrayBuffer: 'readonly',
   },
   parserOptions: {
-    ecmaVersion: 2019,
+    ecmaVersion: 2020,
   },
   rules: {
     'comma-dangle': [ERROR, 'always-multiline'],
+    'curly': [ERROR, 'multi-line', 'consistent'],
+    'func-style': [ERROR, 'expression'],
+    'max-len': [ERROR, { code: 100 }],
     'no-var': ERROR,
   },
 }

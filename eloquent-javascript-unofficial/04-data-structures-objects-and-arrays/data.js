@@ -1,18 +1,16 @@
 const journal = []
 
-function addEntry (events, squirrel) {
+const addEntry = (events, squirrel) => {
   journal.push({ events, squirrel })
 }
 
-function phi (table) {
-  return (table[3] * table[0] - table[2] * table[1]) /
-    Math.sqrt((table[2] + table[3]) *
-      (table[0] + table[1]) *
-      (table[1] + table[3]) *
-      (table[0] + table[2]))
-}
+const phi = table => (table[3] * table[0] - table[2] * table[1]) /
+  Math.sqrt((table[2] + table[3]) *
+    (table[0] + table[1]) *
+    (table[1] + table[3]) *
+    (table[0] + table[2]))
 
-function tableFor (event, journal) {
+const tableFor = (event, journal) => {
   const table = [0, 0, 0, 0]
   for (let i = 0; i < journal.length; i++) {
     const entry = journal[i]; let index = 0
@@ -23,7 +21,7 @@ function tableFor (event, journal) {
   return table
 }
 
-function journalEvents (journal) {
+const journalEvents = journal => {
   const events = []
   for (const entry of journal) {
     for (const event of entry.events) {
@@ -35,7 +33,7 @@ function journalEvents (journal) {
   return events
 }
 
-function max (...numbers) {
+const max = (...numbers) => {
   let result = -Infinity
   for (const number of numbers) {
     if (number > result) result = number
@@ -53,3 +51,5 @@ const list = {
     },
   },
 }
+
+module.exports = { addEntry, phi, tableFor, journalEvents, max, list }

@@ -115,10 +115,12 @@
         return function (...args) {
           const wait = waitFor - Date.now()
           if (wait <= 0) return f(...args)
-          return new Promise(ok => setTimeout(ok, wait)).then(() => f(...args))
+          return new Promise(resolve => setTimeout(resolve, wait)).then(() => f(...args))
         }
       }
-      for (const n of ['routeRequest', 'findInStorage', 'chicks']) { window[n] = wrapWaiting(window[n]) }
+      for (const n of ['routeRequest', 'findInStorage', 'chicks']) {
+        window[n] = wrapWaiting(window[n])
+      }
     }
   }
 

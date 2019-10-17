@@ -1,10 +1,10 @@
-function repeat (n, action) {
+const repeat = (n, action) => {
   for (let i = 0; i < n; i++) {
     action(i)
   }
 }
 
-function characterScript (code) {
+const characterScript = code => {
   for (const script of SCRIPTS) {
     if (script.ranges.some(([from, to]) => {
       return code >= from && code < to
@@ -15,7 +15,7 @@ function characterScript (code) {
   return null
 }
 
-function countBy (items, groupName) {
+const countBy = (items, groupName) => {
   const counts = []
   for (const item of items) {
     const name = groupName(item)
@@ -29,7 +29,7 @@ function countBy (items, groupName) {
   return counts
 }
 
-function textScripts (text) {
+const textScripts = text => {
   const scripts = countBy(text, char => {
     const script = characterScript(char.codePointAt(0))
     return script ? script.name : 'none'
