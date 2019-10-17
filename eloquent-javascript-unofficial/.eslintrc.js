@@ -8,6 +8,7 @@ module.exports = {
   },
   extends: [
     'standard',
+    'plugin:prettier/recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -20,7 +21,6 @@ module.exports = {
     'comma-dangle': [ERROR, 'always-multiline'],
     'curly': [ERROR, 'multi-line', 'consistent'],
     'func-style': [ERROR, 'expression'],
-    'max-len': [ERROR, { code: 100 }],
     'no-var': ERROR,
   },
 }
