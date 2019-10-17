@@ -1,1 +1,1 @@
-# js-book-club
+# JS Book Club
