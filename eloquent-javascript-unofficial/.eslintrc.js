@@ -17,6 +17,7 @@ module.exports = {
     ecmaVersion: 2019,
   },
   rules: {
-    'comma-dangle': [ERROR, 'always-multiline']
+    'comma-dangle': [ERROR, 'always-multiline'],
+    'no-var': ERROR,
   },
 }

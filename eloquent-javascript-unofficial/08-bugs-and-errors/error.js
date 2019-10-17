@@ -1,4 +1,4 @@
-var accounts = {
+let accounts = {
   a: 100,
   b: 0,
   c: 20
@@ -27,7 +27,7 @@ function transfer(from, amount) {
     accounts[getAccount()] += amount;
     progress = 2;
   } finally {
-    if (progress == 1) {
+    if (progress === 1) {
       accounts[from] += amount;
     }
   }
@@ -37,7 +37,7 @@ var InputError = class InputError extends Error {}
 
 function promptDirection(question) {
   let result = prompt(question);
-  if (result.toLowerCase() == "left") return "L";
-  if (result.toLowerCase() == "right") return "R";
+  if (result.toLowerCase() === "left") return "L";
+  if (result.toLowerCase() === "right") return "R";
   throw new InputError("Invalid direction: " + result);
 }
