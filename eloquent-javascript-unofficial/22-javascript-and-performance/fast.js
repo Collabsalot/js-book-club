@@ -1,3 +1,5 @@
+const { drawGraph, Vec } = require('./draw-layout')
+
 const GraphNode = class GraphNode {
   constructor () {
     this.pos = new Vec(Math.random() * 1000,
@@ -15,7 +17,7 @@ const GraphNode = class GraphNode {
   }
 }
 
-function treeGraph (depth, branches) {
+const treeGraph = (depth, branches) => {
   let graph = [new GraphNode()]
   if (depth > 1) {
     for (let i = 0; i < branches; i++) {
@@ -32,7 +34,7 @@ const springStrength = 0.1
 
 const repulsionStrength = 1500
 
-function forceDirected_simple (graph) {
+const forceDirected_simple = graph => {
   for (const node of graph) {
     for (const other of graph) {
       if (other === node) continue
@@ -48,8 +50,8 @@ function forceDirected_simple (graph) {
   }
 }
 
-function runLayout (implementation, graph) {
-  function run (steps, time) {
+const runLayout = (implementation, graph) => {
+  const run = (steps, time) => {
     const startTime = Date.now()
     for (let i = 0; i < 100; i++) {
       implementation(graph)
@@ -63,7 +65,7 @@ function runLayout (implementation, graph) {
   run(4000, 0)
 }
 
-function forceDirected_noRepeat (graph) {
+const forceDirected_noRepeat = graph => {
   for (let i = 0; i < graph.length; i++) {
     const node = graph[i]
     for (let j = i + 1; j < graph.length; j++) {
@@ -83,7 +85,7 @@ function forceDirected_noRepeat (graph) {
 
 const skipDistance = 175
 
-function forceDirected_skip (graph) {
+const forceDirected_skip = graph => {
   for (let i = 0; i < graph.length; i++) {
     const node = graph[i]
     for (let j = i + 1; j < graph.length; j++) {
@@ -110,7 +112,7 @@ GraphNode.prototype.hasEdgeFast = function (other) {
   return false
 }
 
-function forceDirected_hasEdgeFast (graph) {
+const forceDirected_hasEdgeFast = graph => {
   for (let i = 0; i < graph.length; i++) {
     const node = graph[i]
     for (let j = i + 1; j < graph.length; j++) {
@@ -130,7 +132,7 @@ function forceDirected_hasEdgeFast (graph) {
   }
 }
 
-function forceDirected_noVector (graph) {
+const forceDirected_noVector = graph => {
   for (let i = 0; i < graph.length; i++) {
     const node = graph[i]
     for (let j = i + 1; j < graph.length; j++) {

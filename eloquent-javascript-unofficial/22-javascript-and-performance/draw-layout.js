@@ -29,7 +29,7 @@ class Vec {
 
 const nodeSize = 8
 
-function drawGraph (graph) {
+const drawGraph = graph => {
   let canvas = document.querySelector('canvas')
   if (!canvas) {
     canvas = document.body.appendChild(document.createElement('canvas'))
@@ -106,3 +106,5 @@ class Scale {
     return this.scaleY * (y - this.offsetY) + nodeSize
   }
 }
+
+module.exports = { Vec, drawGraph, Scale }

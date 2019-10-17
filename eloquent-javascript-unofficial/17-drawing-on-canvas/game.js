@@ -44,7 +44,7 @@ const State = class State {
   }
 }
 
-var Vec = class Vec {
+const Vec = class Vec {
   constructor (x, y) {
     this.x = x; this.y = y
   }
@@ -114,7 +114,7 @@ const Coin = class Coin {
 
 Coin.prototype.size = new Vec(0.6, 0.6)
 
-var levelChars = {
+const levelChars = {
   '.': 'empty',
   '#': 'wall',
   '+': 'lava',
@@ -127,7 +127,7 @@ var levelChars = {
 
 const simpleLevel = new Level(simpleLevelPlan)
 
-function elt (name, attrs, ...children) {
+const elt = (name, attrs, ...children) => {
   const dom = document.createElement(name)
   for (const attr of Object.keys(attrs)) {
     dom.setAttribute(attr, attrs[attr])
@@ -160,16 +160,14 @@ function drawGrid (level) {
   ))
 }
 
-function drawActors (actors) {
-  return elt('div', {}, ...actors.map(actor => {
-    const rect = elt('div', { class: `actor ${actor.type}` })
-    rect.style.width = `${actor.size.x * scale}px`
-    rect.style.height = `${actor.size.y * scale}px`
-    rect.style.left = `${actor.pos.x * scale}px`
-    rect.style.top = `${actor.pos.y * scale}px`
-    return rect
-  }))
-}
+const drawActors = actors => elt('div', {}, ...actors.map(actor => {
+  const rect = elt('div', { class: `actor ${actor.type}` })
+  rect.style.width = `${actor.size.x * scale}px`
+  rect.style.height = `${actor.size.y * scale}px`
+  rect.style.left = `${actor.pos.x * scale}px`
+  rect.style.top = `${actor.pos.y * scale}px`
+  return rect
+}))
 
 DOMDisplay.prototype.syncState = function (state) {
   if (this.actorLayer) this.actorLayer.remove()
@@ -305,7 +303,7 @@ Player.prototype.update = function (time, state, keys) {
   return new Player(pos, new Vec(xSpeed, ySpeed))
 }
 
-function trackKeys (keys) {
+const trackKeys = keys => {
   const down = Object.create(null)
   function track (event) {
     if (keys.includes(event.key)) {
@@ -321,7 +319,7 @@ function trackKeys (keys) {
 const arrowKeys =
   trackKeys(['ArrowLeft', 'ArrowRight', 'ArrowUp'])
 
-function runAnimation (frameFunc) {
+const runAnimation = frameFunc => {
   let lastTime = null
   function frame (time) {
     if (lastTime != null) {
@@ -334,7 +332,7 @@ function runAnimation (frameFunc) {
   requestAnimationFrame(frame)
 }
 
-function runLevel (level, Display) {
+const runLevel = (level, Display) => {
   const display = new Display(document.body, level)
   let state = State.start(level)
   let ending = 1
@@ -356,10 +354,9 @@ function runLevel (level, Display) {
   })
 }
 
-async function runGame (plans, Display) {
+const runGame = async (plans, Display) => {
   for (let level = 0; level < plans.length;) {
-    const status = await runLevel(new Level(plans[level]),
-      Display)
+    const status = await runLevel(new Level(plans[level]), Display)
     if (status === 'won') level++
   }
   console.log("You've won!")

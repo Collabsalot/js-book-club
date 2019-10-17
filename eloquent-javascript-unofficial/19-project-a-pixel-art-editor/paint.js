@@ -23,11 +23,9 @@ const Picture = class Picture {
   }
 }
 
-function updateState (state, action) {
-  return Object.assign({}, state, action)
-}
+const updateState = (state, action) => Object.assign({}, state, action)
 
-function elt (type, props, ...children) {
+const elt = (type, props, ...children) => {
   const dom = document.createElement(type)
   if (props) Object.assign(dom, props)
   for (const child of children) {
@@ -38,6 +36,19 @@ function elt (type, props, ...children) {
 }
 
 const scale = 10
+
+const drawPicture = (picture, canvas, scale) => {
+  canvas.width = picture.width * scale
+  canvas.height = picture.height * scale
+  const cx = canvas.getContext('2d')
+
+  for (let y = 0; y < picture.height; y++) {
+    for (let x = 0; x < picture.width; x++) {
+      cx.fillStyle = picture.pixel(x, y)
+      cx.fillRect(x * scale, y * scale, scale, scale)
+    }
+  }
+}
 
 const PictureCanvas = class PictureCanvas {
   constructor (picture, pointerDown) {
@@ -55,16 +66,11 @@ const PictureCanvas = class PictureCanvas {
   }
 }
 
-function drawPicture (picture, canvas, scale) {
-  canvas.width = picture.width * scale
-  canvas.height = picture.height * scale
-  const cx = canvas.getContext('2d')
-
-  for (let y = 0; y < picture.height; y++) {
-    for (let x = 0; x < picture.width; x++) {
-      cx.fillStyle = picture.pixel(x, y)
-      cx.fillRect(x * scale, y * scale, scale, scale)
-    }
+const pointerPosition = (pos, domNode) => {
+  const rect = domNode.getBoundingClientRect()
+  return {
+    x: Math.floor((pos.clientX - rect.left) / scale),
+    y: Math.floor((pos.clientY - rect.top) / scale),
   }
 }
 
@@ -84,14 +90,6 @@ PictureCanvas.prototype.mouse = function (downEvent, onDown) {
     }
   }
   this.dom.addEventListener('mousemove', move)
-}
-
-function pointerPosition (pos, domNode) {
-  const rect = domNode.getBoundingClientRect()
-  return {
-    x: Math.floor((pos.clientX - rect.left) / scale),
-    y: Math.floor((pos.clientY - rect.top) / scale),
-  }
 }
 
 PictureCanvas.prototype.touch = function (startEvent,
@@ -165,7 +163,7 @@ const ColorSelect = class ColorSelect {
   syncState (state) { this.input.value = state.color }
 }
 
-function draw (pos, state, dispatch) {
+const draw = (pos, state, dispatch) => {
   function drawPixel ({ x, y }, state) {
     const drawn = { x, y, color: state.color }
     dispatch({ picture: state.picture.draw([drawn]) })
@@ -174,7 +172,7 @@ function draw (pos, state, dispatch) {
   return drawPixel
 }
 
-function rectangle (start, state, dispatch) {
+const rectangle = (start, state, dispatch) => {
   function drawRectangle (pos) {
     const xStart = Math.min(start.x, pos.x)
     const yStart = Math.min(start.y, pos.y)
@@ -195,7 +193,7 @@ function rectangle (start, state, dispatch) {
 const around = [{ dx: -1, dy: 0 }, { dx: 1, dy: 0 },
   { dx: 0, dy: -1 }, { dx: 0, dy: 1 }]
 
-function fill ({ x, y }, state, dispatch) {
+const fill = ({ x, y }, state, dispatch) => {
   const targetColor = state.picture.pixel(x, y)
   const drawn = [{ x, y, color: state.color }]
   for (let done = 0; done < drawn.length; done++) {
@@ -212,7 +210,7 @@ function fill ({ x, y }, state, dispatch) {
   dispatch({ picture: state.picture.draw(drawn) })
 }
 
-function pick (pos, state, dispatch) {
+const pick = (pos, state, dispatch) => {
   dispatch({ color: state.picture.pixel(pos.x, pos.y) })
 }
 
@@ -239,6 +237,16 @@ const SaveButton = class SaveButton {
   syncState (state) { this.picture = state.picture }
 }
 
+const startLoad = dispatch => {
+  const input = elt('input', {
+    type: 'file',
+    onchange: () => finishLoad(input.files[0], dispatch),
+  })
+  document.body.appendChild(input)
+  input.click()
+  input.remove()
+}
+
 const LoadButton = class LoadButton {
   constructor (_, { dispatch }) {
     this.dom = elt('button', {
@@ -249,31 +257,7 @@ const LoadButton = class LoadButton {
   syncState () {}
 }
 
-function startLoad (dispatch) {
-  const input = elt('input', {
-    type: 'file',
-    onchange: () => finishLoad(input.files[0], dispatch),
-  })
-  document.body.appendChild(input)
-  input.click()
-  input.remove()
-}
-
-function finishLoad (file, dispatch) {
-  if (file == null) return
-  const reader = new FileReader()
-  reader.addEventListener('load', () => {
-    const image = elt('img', {
-      onload: () => dispatch({
-        picture: pictureFromImage(image),
-      }),
-      src: reader.result,
-    })
-  })
-  reader.readAsDataURL(file)
-}
-
-function pictureFromImage (image) {
+const pictureFromImage = image => {
   const width = Math.min(100, image.width)
   const height = Math.min(100, image.height)
   const canvas = elt('canvas', { width, height })
@@ -292,7 +276,21 @@ function pictureFromImage (image) {
   return new Picture(width, height, pixels)
 }
 
-function historyUpdateState (state, action) {
+const finishLoad = (file, dispatch) => {
+  if (file == null) return
+  const reader = new FileReader()
+  reader.addEventListener('load', () => {
+    const image = elt('img', {
+      onload: () => dispatch({
+        picture: pictureFromImage(image),
+      }),
+      src: reader.result,
+    })
+  })
+  reader.readAsDataURL(file)
+}
+
+const historyUpdateState = (state, action) => {
   if (action.undo === true) {
     if (state.done.length === 0) return state
     return Object.assign({}, state, {
@@ -338,11 +336,11 @@ const baseControls = [
   ToolSelect, ColorSelect, SaveButton, LoadButton, UndoButton,
 ]
 
-function startPixelEditor ({
+const startPixelEditor = ({
   state = startState,
   tools = baseTools,
   controls = baseControls,
-}) {
+}) => {
   const app = new PixelEditor(state, {
     tools,
     controls,

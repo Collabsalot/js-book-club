@@ -1,4 +1,4 @@
-function backgroundReadFile (url, callback) {
+const backgroundReadFile = (url, callback) => {
   const req = new XMLHttpRequest()
   req.open('GET', url, true)
   req.addEventListener('load', function () {
@@ -7,7 +7,7 @@ function backgroundReadFile (url, callback) {
   req.send(null)
 }
 
-function getURL (url, callback) {
+const getURL = (url, callback) => {
   const req = new XMLHttpRequest()
   req.open('GET', url, true)
   req.addEventListener('load', function () {
