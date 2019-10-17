@@ -56,6 +56,17 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "marijnh",
+      "name": "Marijn Haverbeke",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/144427?v=4",
+      "profile": "http://marijnhaverbeke.nl",
+      "contributions": [
+        "code",
+        "content",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7
