@@ -1,4 +1,5 @@
 # JS Book Club
+[![GitHub](https://img.shields.io/github/license/MartinRosenberg/js-book-club?style=flat-square)](./LICENSE)
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 
 ## Book
