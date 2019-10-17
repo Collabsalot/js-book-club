@@ -19,6 +19,15 @@
         "ideas",
         "eventOrganizing"
       ]
+    },
+    {
+      "login": "blukmays",
+      "name": "Blu Mays",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/33442203?v=4",
+      "profile": "https://github.com/blukmays",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7
