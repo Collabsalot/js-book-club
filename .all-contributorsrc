@@ -67,6 +67,17 @@
         "content",
         "tool"
       ]
+    },
+    {
+      "login": "scottybquik",
+      "name": "Scott Bowman",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/29443694?v=4",
+      "profile": "https://linkedin.com/in/sbowman1",
+      "contributions": [
+        "eventOrganizing",
+        "infra",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7
