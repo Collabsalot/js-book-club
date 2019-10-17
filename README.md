@@ -1,7 +1,22 @@
 # JS Book Club
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 
-## Contributors ✨
+## Book
+
+We'll be reading [_Eloquent JavaScript_](https://eloquentjavascript.net/) by [Marijn Haverbeke](https://marijnhaverbeke.nl/). It's available in a [wide variety of formats](https://eloquentjavascript.net/#links), nearly all of them free:
+
+* [Print (with extra chapter)](http://www.nostarch.com/ejs3) from No Starch Press for $39.95
+* [PDF](https://eloquentjavascript.net/Eloquent_JavaScript.pdf)
+* [PDF (small pages)](https://eloquentjavascript.net/Eloquent_JavaScript_small.pdf) for mobile
+* [EPUB](https://eloquentjavascript.net/Eloquent_JavaScript.epub)
+* [MOBI](https://eloquentjavascript.net/Eloquent_JavaScript.mobi) for Kindle
+* [HTML](https://eloquentjavascript.net/)
+
+## Exercises
+
+Each chapter (except for 0, 1, and 13) contains exercises for the reader to complete. All of those exercises are available in a [sandbox](https://eloquentjavascript.net/code/) on the official website, along with all the code from the respective chapters. These will be reproduced in this repository for your convenience.
+
+## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
@@ -23,3 +38,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## Licenses
+
+### The book
+
+_Eloquent JavaScript_ is © 2011-2019 Marijn Haverbeke. He has made the whole book available under a [CC BY-NC 3.0](https://creativecommons.org/licenses/by-nc/3.0/) license, and the code additionally under an [MIT](https://opensource.org/licenses/MIT) license – thanks, Marijn! – so we are free to reproduce it here in whole or in part.
+
+### This repository
+
+Any non-code content from _Eloquent JavaScript_ cannot be converted to GPL-3.0 due to the **non-commercial** clause, and remains under its original CC BY-NC 3.0 license. Everything else in this repository is available under the provided [GPL-3.0-or-later](./LICENSE) copyleft license unless otherwise specified.
