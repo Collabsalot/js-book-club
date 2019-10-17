@@ -12,6 +12,7 @@ We'll be reading [_Eloquent JavaScript_](https://eloquentjavascript.net/) by [Ma
 * [EPUB](https://eloquentjavascript.net/Eloquent_JavaScript.epub)
 * [MOBI](https://eloquentjavascript.net/Eloquent_JavaScript.mobi) for Kindle
 * [HTML](https://eloquentjavascript.net/)
+* [Source](https://github.com/marijnh/Eloquent-JavaScript)
 
 ## Exercises
 
