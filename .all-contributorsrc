@@ -9,6 +9,7 @@
   "imageSize": 100,
   "commit": true,
   "commitConvention": "eslint",
+  "contributorsPerLine": 6,
   "contributors": [
     {
       "login": "MartinRosenberg",
@@ -16,9 +17,32 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/2382147?v=4",
       "profile": "https://martinbrosenberg.com/",
       "contributions": [
-        "ideas",
+        "doc",
         "eventOrganizing",
-        "doc"
+        "ideas",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "scottybquik",
+      "name": "Scott Bowman",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/29443694?v=4",
+      "profile": "https://linkedin.com/in/sbowman1",
+      "contributions": [
+        "eventOrganizing",
+        "ideas",
+        "infra"
+      ]
+    },
+    {
+      "login": "marijnh",
+      "name": "Marijn Haverbeke",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/144427?v=4",
+      "profile": "http://marijnhaverbeke.nl",
+      "contributions": [
+        "code",
+        "content",
+        "tool"
       ]
     },
     {
@@ -56,29 +80,6 @@
       "contributions": [
         "ideas"
       ]
-    },
-    {
-      "login": "marijnh",
-      "name": "Marijn Haverbeke",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/144427?v=4",
-      "profile": "http://marijnhaverbeke.nl",
-      "contributions": [
-        "code",
-        "content",
-        "tool"
-      ]
-    },
-    {
-      "login": "scottybquik",
-      "name": "Scott Bowman",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/29443694?v=4",
-      "profile": "https://linkedin.com/in/sbowman1",
-      "contributions": [
-        "eventOrganizing",
-        "infra",
-        "ideas"
-      ]
     }
-  ],
-  "contributorsPerLine": 7
+  ]
 }
