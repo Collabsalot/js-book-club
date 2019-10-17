@@ -1,0 +1,25 @@
+{
+  "projectName": "js-book-club",
+  "projectOwner": "MartinRosenberg",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "eslint",
+  "contributors": [
+    {
+      "login": "MartinRosenberg",
+      "name": "Martin Rosenberg",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2382147?v=4",
+      "profile": "https://martinbrosenberg.com/",
+      "contributions": [
+        "ideas",
+        "eventOrganizing"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}

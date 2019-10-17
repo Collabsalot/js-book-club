@@ -12,6 +12,11 @@
   "license": "GPL-3.0-or-later",
   "author": "Martin Rosenberg <Martin.B.Rosenberg@gmail.com> (https://martinbrosenberg.com)",
   "scripts": {
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate",
     "test": "echo 'Error: no test specified' && exit 1"
+  },
+  "devDependencies": {
+    "all-contributors-cli": "^6.9.1"
   }
 }
