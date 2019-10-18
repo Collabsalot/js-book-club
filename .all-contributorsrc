@@ -80,6 +80,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "chuckb1789",
+      "name": "Charlie",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/23364596?v=4",
+      "profile": "https://github.com/chuckb1789",
+      "contributions": [
+        "infra"
+      ]
     }
   ]
 }

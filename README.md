@@ -1,6 +1,6 @@
 # JS Book Club
 [![GitHub](https://img.shields.io/github/license/MartinRosenberg/js-book-club?style=flat-square)](./LICENSE)
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 
 ## Book
 
@@ -36,6 +36,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="http://atydev.com"><img src="https://avatars0.githubusercontent.com/u/10835135?v=4" width="100px;" alt="Andy Young"/><br /><sub><b>Andy Young</b></sub></a><br /><a href="#ideas-andy-young" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/chuckb1789"><img src="https://avatars2.githubusercontent.com/u/23364596?v=4" width="100px;" alt="Charlie"/><br /><sub><b>Charlie</b></sub></a><br /><a href="#infra-chuckb1789" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
   </tr>
 </table>
 
