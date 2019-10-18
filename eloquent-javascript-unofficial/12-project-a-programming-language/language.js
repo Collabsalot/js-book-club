@@ -147,9 +147,7 @@ specialForms.fun = (args, scope) => {
     return expr.name
   })
 
-  // TODO: is `arguments` valid here?
-  /* eslint-disable no-undef */
-  return () => {
+  return function() {
     if (arguments.length !== params.length) {
       throw new TypeError('Wrong number of arguments')
     }
@@ -159,7 +157,6 @@ specialForms.fun = (args, scope) => {
     }
     return evaluate(body, localScope)
   }
-  /* eslint-enable no-undef */
 }
 
 module.exports = { run }

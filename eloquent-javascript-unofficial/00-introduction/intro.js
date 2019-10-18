@@ -1,5 +1,4 @@
-const range = (start, end, step) => {
-  if (step == null) step = 1
+const range = (start, end, step = 1) => {
   const array = []
 
   if (step > 0) {
