@@ -24,3 +24,5 @@ const getURL = (url, callback) => {
   })
   req.send(null)
 }
+
+module.exports = { backgroundReadFile, getURL }

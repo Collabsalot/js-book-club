@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 const { drawGraph, Vec } = require('./draw-layout')
 
 const GraphNode = class GraphNode {
@@ -158,4 +160,13 @@ const forceDirected_noVector = (graph) => {
 const mangledGraph = treeGraph(4, 4)
 for (const node of mangledGraph) {
   node[`p${Math.floor(Math.random() * 999)}`] = true
+}
+
+module.exports = {
+  forceDirected_simple,
+  runLayout,
+  forceDirected_noRepeat,
+  forceDirected_skip,
+  forceDirected_hasEdgeFast,
+  forceDirected_noVector,
 }

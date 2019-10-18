@@ -1,3 +1,5 @@
+const { SCRIPTS } = require('./scripts')
+
 const repeat = (n, action) => {
   for (let i = 0; i < n; i++) {
     action(i)
@@ -6,11 +8,7 @@ const repeat = (n, action) => {
 
 const characterScript = (code) => {
   for (const script of SCRIPTS) {
-    if (
-      script.ranges.some(([from, to]) => {
-        return code >= from && code < to
-      })
-    ) {
+    if (script.ranges.some(([from, to]) => code >= from && code < to)) {
       return script
     }
   }
@@ -41,8 +39,8 @@ const textScripts = (text) => {
   if (total === 0) return 'No scripts found'
 
   return scripts
-    .map(({ name, count }) => {
-      return `${Math.round((count * 100) / total)}% ${name}`
-    })
+    .map(({ name, count }) => `${Math.round((count * 100) / total)}% ${name}`)
     .join(', ')
 }
+
+module.exports = { repeat, textScripts }

@@ -1,18 +1,25 @@
 /* eslint-disable prettier/prettier */
 const roads = [
-  "Alice's House-Bob's House", "Alice's House-Cabin",
-  "Alice's House-Post Office", "Bob's House-Town Hall",
-  "Daria's House-Ernie's House", "Daria's House-Town Hall",
-  "Ernie's House-Grete's House", "Grete's House-Farm",
-  "Grete's House-Shop", 'Marketplace-Farm',
-  'Marketplace-Post Office', 'Marketplace-Shop',
-  'Marketplace-Town Hall', 'Shop-Town Hall',
+  "Alice's House-Bob's House",
+  "Alice's House-Cabin",
+  "Alice's House-Post Office",
+  "Bob's House-Town Hall",
+  "Daria's House-Ernie's House",
+  "Daria's House-Town Hall",
+  "Ernie's House-Grete's House",
+  "Grete's House-Farm",
+  "Grete's House-Shop",
+  'Marketplace-Farm',
+  'Marketplace-Post Office',
+  'Marketplace-Shop',
+  'Marketplace-Town Hall',
+  'Shop-Town Hall',
 ]
 /* eslint-enable prettier/prettier */
 
-function buildGraph(edges) {
+const buildGraph = (edges) => {
   const graph = Object.create(null)
-  function addEdge(from, to) {
+  const addEdge = (from, to) => {
     if (graph[from] == null) {
       graph[from] = [to]
     } else {
@@ -49,7 +56,7 @@ const VillageState = class VillageState {
   }
 }
 
-function runRobot(state, robot, memory) {
+const runRobot = (state, robot, memory) => {
   for (let turn = 0; ; turn++) {
     if (state.parcels.length === 0) {
       console.log(`Done in ${turn} turns`)
@@ -62,14 +69,14 @@ function runRobot(state, robot, memory) {
   }
 }
 
-function randomPick(array) {
+const randomPick = (array) => {
   const choice = Math.floor(Math.random() * array.length)
   return array[choice]
 }
 
-function randomRobot(state) {
-  return { direction: randomPick(roadGraph[state.place]) }
-}
+const randomRobot = (state) => ({
+  direction: randomPick(roadGraph[state.place]),
+})
 
 VillageState.random = function(parcelCount = 5) {
   const parcels = []
@@ -86,21 +93,30 @@ VillageState.random = function(parcelCount = 5) {
 
 /* eslint-disable prettier/prettier */
 const mailRoute = [
-  "Alice's House", 'Cabin', "Alice's House", "Bob's House",
-  'Town Hall', "Daria's House", "Ernie's House",
-  "Grete's House", 'Shop', "Grete's House", 'Farm',
-  'Marketplace', 'Post Office',
+  "Alice's House",
+  'Cabin',
+  "Alice's House",
+  "Bob's House",
+  'Town Hall',
+  "Daria's House",
+  "Ernie's House",
+  "Grete's House",
+  'Shop',
+  "Grete's House",
+  'Farm',
+  'Marketplace',
+  'Post Office',
 ]
 /* eslint-enable prettier/prettier */
 
-function routeRobot(state, memory) {
+const routeRobot = (state, memory) => {
   if (memory.length === 0) {
     memory = mailRoute
   }
   return { direction: memory[0], memory: memory.slice(1) }
 }
 
-function findRoute(graph, from, to) {
+const findRoute = (graph, from, to) => {
   const work = [{ at: from, route: [] }]
   for (let i = 0; i < work.length; i++) {
     const { at, route } = work[i]
@@ -113,7 +129,7 @@ function findRoute(graph, from, to) {
   }
 }
 
-function goalOrientedRobot({ place, parcels }, route) {
+const goalOrientedRobot = ({ place, parcels }, route) => {
   if (route.length === 0) {
     const parcel = parcels[0]
     if (parcel.place !== place) {
@@ -124,3 +140,5 @@ function goalOrientedRobot({ place, parcels }, route) {
   }
   return { direction: route[0], memory: route.slice(1) }
 }
+
+module.exports = { runRobot, randomRobot, routeRobot, goalOrientedRobot }

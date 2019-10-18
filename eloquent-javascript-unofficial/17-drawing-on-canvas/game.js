@@ -9,6 +9,8 @@ const simpleLevelPlan = `
 ......##############..
 ......................`
 
+const scale = 20
+
 const Level = class Level {
   constructor(plan) {
     const rows = plan
@@ -145,22 +147,8 @@ const elt = (name, attrs, ...children) => {
   return dom
 }
 
-const DOMDisplay = class DOMDisplay {
-  constructor(parent, level) {
-    this.dom = elt('div', { class: 'game' }, drawGrid(level))
-    this.actorLayer = null
-    parent.appendChild(this.dom)
-  }
-
-  clear() {
-    this.dom.remove()
-  }
-}
-
-const scale = 20
-
-function drawGrid(level) {
-  return elt(
+const drawGrid = (level) =>
+  elt(
     'table',
     {
       class: 'background',
@@ -174,6 +162,17 @@ function drawGrid(level) {
       ),
     ),
   )
+
+const DOMDisplay = class DOMDisplay {
+  constructor(parent, level) {
+    this.dom = elt('div', { class: 'game' }, drawGrid(level))
+    this.actorLayer = null
+    parent.appendChild(this.dom)
+  }
+
+  clear() {
+    this.dom.remove()
+  }
 }
 
 const drawActors = (actors) =>
@@ -240,6 +239,12 @@ Level.prototype.touches = function(pos, size, type) {
   return false
 }
 
+const overlap = (actor1, actor2) =>
+  actor1.pos.x + actor1.size.x > actor2.pos.x &&
+  actor1.pos.x < actor2.pos.x + actor2.size.x &&
+  actor1.pos.y + actor1.size.y > actor2.pos.y &&
+  actor1.pos.y < actor2.pos.y + actor2.size.y
+
 State.prototype.update = function(time, keys) {
   const actors = this.actors.map((actor) => actor.update(time, this, keys))
   let newState = new State(this.level, actors, this.status)
@@ -257,15 +262,6 @@ State.prototype.update = function(time, keys) {
     }
   }
   return newState
-}
-
-function overlap(actor1, actor2) {
-  return (
-    actor1.pos.x + actor1.size.x > actor2.pos.x &&
-    actor1.pos.x < actor2.pos.x + actor2.size.x &&
-    actor1.pos.y + actor1.size.y > actor2.pos.y &&
-    actor1.pos.y < actor2.pos.y + actor2.size.y
-  )
 }
 
 Lava.prototype.collide = function(state) {
@@ -331,7 +327,7 @@ Player.prototype.update = function(time, state, keys) {
 
 const trackKeys = (keys) => {
   const down = Object.create(null)
-  function track(event) {
+  const track = (event) => {
     if (keys.includes(event.key)) {
       down[event.key] = event.type === 'keydown'
       event.preventDefault()
@@ -346,7 +342,7 @@ const arrowKeys = trackKeys(['ArrowLeft', 'ArrowRight', 'ArrowUp'])
 
 const runAnimation = (frameFunc) => {
   let lastTime = null
-  function frame(time) {
+  const frame = (time) => {
     if (lastTime != null) {
       const timeStep = Math.min(time - lastTime, 100) / 1000
       if (frameFunc(timeStep) === false) return
@@ -386,3 +382,5 @@ const runGame = async (plans, Display) => {
   }
   console.log("You've won!")
 }
+
+module.exports = { scale, simpleLevel, runGame }

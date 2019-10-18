@@ -46,7 +46,7 @@ const State = class State {
   }
 }
 
-var Vec = class Vec {
+const Vec = class Vec {
   constructor(x, y) {
     this.x = x
     this.y = y
@@ -121,7 +121,7 @@ const Coin = class Coin {
 
 Coin.prototype.size = new Vec(0.6, 0.6)
 
-var levelChars = {
+const levelChars = {
   '.': 'empty',
   '#': 'wall',
   '+': 'lava',
@@ -134,7 +134,7 @@ var levelChars = {
 
 const simpleLevel = new Level(simpleLevelPlan)
 
-function elt(name, attrs, ...children) {
+const elt = (name, attrs, ...children) => {
   const dom = document.createElement(name)
   for (const attr of Object.keys(attrs)) {
     dom.setAttribute(attr, attrs[attr])
@@ -144,6 +144,22 @@ function elt(name, attrs, ...children) {
   }
   return dom
 }
+
+const drawGrid = (level) =>
+  elt(
+    'table',
+    {
+      class: 'background',
+      style: `width: ${level.width * scale}px`,
+    },
+    ...level.rows.map((row) =>
+      elt(
+        'tr',
+        { style: `height: ${scale}px` },
+        ...row.map((type) => elt('td', { class: type })),
+      ),
+    ),
+  )
 
 const DOMDisplay = class DOMDisplay {
   constructor(parent, level) {
@@ -159,25 +175,8 @@ const DOMDisplay = class DOMDisplay {
 
 const scale = 20
 
-function drawGrid(level) {
-  return elt(
-    'table',
-    {
-      class: 'background',
-      style: `width: ${level.width * scale}px`,
-    },
-    ...level.rows.map((row) =>
-      elt(
-        'tr',
-        { style: `height: ${scale}px` },
-        ...row.map((type) => elt('td', { class: type })),
-      ),
-    ),
-  )
-}
-
-function drawActors(actors) {
-  return elt(
+const drawActors = (actors) =>
+  elt(
     'div',
     {},
     ...actors.map((actor) => {
@@ -189,7 +188,6 @@ function drawActors(actors) {
       return rect
     }),
   )
-}
 
 DOMDisplay.prototype.syncState = function(state) {
   if (this.actorLayer) this.actorLayer.remove()
@@ -241,6 +239,12 @@ Level.prototype.touches = function(pos, size, type) {
   return false
 }
 
+const overlap = (actor1, actor2) =>
+  actor1.pos.x + actor1.size.x > actor2.pos.x &&
+  actor1.pos.x < actor2.pos.x + actor2.size.x &&
+  actor1.pos.y + actor1.size.y > actor2.pos.y &&
+  actor1.pos.y < actor2.pos.y + actor2.size.y
+
 State.prototype.update = function(time, keys) {
   const actors = this.actors.map((actor) => actor.update(time, this, keys))
   let newState = new State(this.level, actors, this.status)
@@ -258,15 +262,6 @@ State.prototype.update = function(time, keys) {
     }
   }
   return newState
-}
-
-function overlap(actor1, actor2) {
-  return (
-    actor1.pos.x + actor1.size.x > actor2.pos.x &&
-    actor1.pos.x < actor2.pos.x + actor2.size.x &&
-    actor1.pos.y + actor1.size.y > actor2.pos.y &&
-    actor1.pos.y < actor2.pos.y + actor2.size.y
-  )
 }
 
 Lava.prototype.collide = function(state) {
@@ -330,9 +325,9 @@ Player.prototype.update = function(time, state, keys) {
   return new Player(pos, new Vec(xSpeed, ySpeed))
 }
 
-function trackKeys(keys) {
+const trackKeys = (keys) => {
   const down = Object.create(null)
-  function track(event) {
+  const track = (event) => {
     if (keys.includes(event.key)) {
       down[event.key] = event.type === 'keydown'
       event.preventDefault()
@@ -345,9 +340,9 @@ function trackKeys(keys) {
 
 const arrowKeys = trackKeys(['ArrowLeft', 'ArrowRight', 'ArrowUp'])
 
-function runAnimation(frameFunc) {
+const runAnimation = (frameFunc) => {
   let lastTime = null
-  function frame(time) {
+  const frame = (time) => {
     if (lastTime != null) {
       const timeStep = Math.min(time - lastTime, 100) / 1000
       if (frameFunc(timeStep) === false) return
@@ -358,7 +353,7 @@ function runAnimation(frameFunc) {
   requestAnimationFrame(frame)
 }
 
-function runLevel(level, Display) {
+const runLevel = (level, Display) => {
   const display = new Display(document.body, level)
   let state = State.start(level)
   let ending = 1
@@ -380,10 +375,12 @@ function runLevel(level, Display) {
   })
 }
 
-async function runGame(plans, Display) {
+const runGame = async (plans, Display) => {
   for (let level = 0; level < plans.length; ) {
     const status = await runLevel(new Level(plans[level]), Display)
     if (status === 'won') level++
   }
   console.log("You've won!")
 }
+
+module.exports = { simpleLevel, runGame }

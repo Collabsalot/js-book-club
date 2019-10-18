@@ -1,26 +1,10 @@
-function parseExpression(program) {
-  program = skipSpace(program)
-  let match, expr
-  if ((match = /^"([^"]*)"/.exec(program))) {
-    expr = { type: 'value', value: match[1] }
-  } else if ((match = /^\d+\b/.exec(program))) {
-    expr = { type: 'value', value: Number(match[0]) }
-  } else if ((match = /^[^\s(),#"]+/.exec(program))) {
-    expr = { type: 'word', name: match[0] }
-  } else {
-    throw new SyntaxError('Unexpected syntax: ' + program)
-  }
-
-  return parseApply(expr, program.slice(match[0].length))
-}
-
-function skipSpace(string) {
+const skipSpace = (string) => {
   const first = string.search(/\S/)
   if (first === -1) return ''
   return string.slice(first)
 }
 
-function parseApply(expr, program) {
+const parseApply = (expr, program) => {
   program = skipSpace(program)
   if (program[0] !== '(') {
     return { expr: expr, rest: program }
@@ -41,7 +25,23 @@ function parseApply(expr, program) {
   return parseApply(expr, program.slice(1))
 }
 
-function parse(program) {
+const parseExpression = (program) => {
+  program = skipSpace(program)
+  let match, expr
+  if ((match = /^"([^"]*)"/.exec(program))) {
+    expr = { type: 'value', value: match[1] }
+  } else if ((match = /^\d+\b/.exec(program))) {
+    expr = { type: 'value', value: Number(match[0]) }
+  } else if ((match = /^[^\s(),#"]+/.exec(program))) {
+    expr = { type: 'word', name: match[0] }
+  } else {
+    throw new SyntaxError('Unexpected syntax: ' + program)
+  }
+
+  return parseApply(expr, program.slice(match[0].length))
+}
+
+const parse = (program) => {
   const { expr, rest } = parseExpression(program)
   if (skipSpace(rest).length > 0) {
     throw new SyntaxError('Unexpected text after program')
@@ -54,7 +54,7 @@ function parse(program) {
 
 const specialForms = Object.create(null)
 
-function evaluate(expr, scope) {
+const evaluate = (expr, scope) => {
   if (expr.type === 'value') {
     return expr.value
   } else if (expr.type === 'word') {
@@ -124,6 +124,7 @@ topScope.true = true
 topScope.false = false
 
 for (const op of ['+', '-', '*', '/', '==', '<', '>']) {
+  // eslint-disable-next-line no-new-func
   topScope[op] = Function('a, b', `return a ${op} b;`)
 }
 
@@ -132,9 +133,7 @@ topScope.print = (value) => {
   return value
 }
 
-function run(program) {
-  return evaluate(parse(program), Object.create(topScope))
-}
+const run = (program) => evaluate(parse(program), Object.create(topScope))
 
 specialForms.fun = (args, scope) => {
   if (!args.length) {
@@ -148,7 +147,9 @@ specialForms.fun = (args, scope) => {
     return expr.name
   })
 
-  return function() {
+  // TODO: is `arguments` valid here?
+  /* eslint-disable no-undef */
+  return () => {
     if (arguments.length !== params.length) {
       throw new TypeError('Wrong number of arguments')
     }
@@ -158,4 +159,7 @@ specialForms.fun = (args, scope) => {
     }
     return evaluate(body, localScope)
   }
+  /* eslint-enable no-undef */
 }
+
+module.exports = { run }

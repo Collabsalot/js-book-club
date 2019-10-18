@@ -1,24 +1,52 @@
-;(function() {
+/* global __sandbox */
+
+;(() => {
   /* eslint-disable prettier/prettier */
   const connections = [
-    'Church Tower-Sportsgrounds', 'Church Tower-Big Maple', 'Big Maple-Sportsgrounds',
-    'Big Maple-Woods', "Big Maple-Fabienne's Garden", "Fabienne's Garden-Woods",
-    "Fabienne's Garden-Cow Pasture", 'Cow Pasture-Big Oak', 'Big Oak-Butcher Shop',
-    'Butcher Shop-Tall Poplar', 'Tall Poplar-Sportsgrounds', 'Tall Poplar-Chateau',
-    'Chateau-Great Pine', "Great Pine-Jacques' Farm", "Jacques' Farm-Hawthorn",
-    'Great Pine-Hawthorn', "Hawthorn-Gilles' Garden", "Great Pine-Gilles' Garden",
-    "Gilles' Garden-Big Oak", "Gilles' Garden-Butcher Shop", 'Chateau-Butcher Shop',
+    'Church Tower-Sportsgrounds',
+    'Church Tower-Big Maple',
+    'Big Maple-Sportsgrounds',
+    'Big Maple-Woods',
+    "Big Maple-Fabienne's Garden",
+    "Fabienne's Garden-Woods",
+    "Fabienne's Garden-Cow Pasture",
+    'Cow Pasture-Big Oak',
+    'Big Oak-Butcher Shop',
+    'Butcher Shop-Tall Poplar',
+    'Tall Poplar-Sportsgrounds',
+    'Tall Poplar-Chateau',
+    'Chateau-Great Pine',
+    "Great Pine-Jacques' Farm",
+    "Jacques' Farm-Hawthorn",
+    'Great Pine-Hawthorn',
+    "Hawthorn-Gilles' Garden",
+    "Great Pine-Gilles' Garden",
+    "Gilles' Garden-Big Oak",
+    "Gilles' Garden-Butcher Shop",
+    'Chateau-Butcher Shop',
   ]
   /* eslint-enable prettier/prettier */
 
-  function storageFor(name) {
+  const storageFor = (name) => {
     /* eslint-disable prettier/prettier */
     const storage = Object.create(null)
-    storage['food caches'] = ['cache in the oak', 'cache in the meadow', 'cache under the hedge']
-    storage['cache in the oak'] = 'A hollow above the third big branch from the bottom. Several pieces of bread and a pile of acorns.'
-    storage['cache in the meadow'] = 'Buried below the patch of nettles (south side). A dead snake.'
-    storage['cache under the hedge'] = "Middle of the hedge at Gilles' garden. Marked with a forked twig. Two bottles of beer."
-    storage.enemies = ["Farmer Jacques' dog", 'The butcher', 'That one-legged jackdaw', 'The boy with the airgun']
+    storage['food caches'] = [
+      'cache in the oak',
+      'cache in the meadow',
+      'cache under the hedge',
+    ]
+    storage['cache in the oak'] =
+      'A hollow above the third big branch from the bottom. Several pieces of bread and a pile of acorns.'
+    storage['cache in the meadow'] =
+      'Buried below the patch of nettles (south side). A dead snake.'
+    storage['cache under the hedge'] =
+      "Middle of the hedge at Gilles' garden. Marked with a forked twig. Two bottles of beer."
+    storage.enemies = [
+      "Farmer Jacques' dog",
+      'The butcher',
+      'That one-legged jackdaw',
+      'The boy with the airgun',
+    ]
     /* eslint-enable prettier/prettier */
     if (name === 'Church Tower' || name === 'Hawthorn' || name === 'Chateau') {
       storage['events on 2017-12-21'] =
@@ -78,9 +106,8 @@
   const $storage = Symbol('storage')
   const $network = Symbol('network')
 
-  function ser(value) {
-    return value == null ? null : JSON.parse(JSON.stringify(value))
-  }
+  const ser = (value) =>
+    value == null ? null : JSON.parse(JSON.stringify(value))
 
   class Node {
     constructor(name, neighbors, network, storage) {
@@ -138,14 +165,12 @@
       // nodes have been running for 500ms, to give them a chance to
       // propagate network information.
       const waitFor = Date.now() + 500
-      function wrapWaiting(f) {
-        return function(...args) {
-          const wait = waitFor - Date.now()
-          if (wait <= 0) return f(...args)
-          return new Promise((resolve) => setTimeout(resolve, wait)).then(() =>
-            f(...args),
-          )
-        }
+      const wrapWaiting = (f) => (...args) => {
+        const wait = waitFor - Date.now()
+        if (wait <= 0) return f(...args)
+        return new Promise((resolve) => setTimeout(resolve, wait)).then(() =>
+          f(...args),
+        )
       }
       for (const n of ['routeRequest', 'findInStorage', 'chicks']) {
         window[n] = wrapWaiting(window[n])

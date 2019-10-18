@@ -179,7 +179,7 @@ const ColorSelect = class ColorSelect {
 }
 
 const draw = (pos, state, dispatch) => {
-  function drawPixel({ x, y }, state) {
+  const drawPixel = ({ x, y }, state) => {
     const drawn = { x, y, color: state.color }
     dispatch({ picture: state.picture.draw([drawn]) })
   }
@@ -188,7 +188,7 @@ const draw = (pos, state, dispatch) => {
 }
 
 const rectangle = (start, state, dispatch) => {
-  function drawRectangle(pos) {
+  const drawRectangle = (pos) => {
     const xStart = Math.min(start.x, pos.x)
     const yStart = Math.min(start.y, pos.y)
     const xEnd = Math.max(start.x, pos.x)
@@ -300,9 +300,7 @@ const pictureFromImage = (image) => {
   const pixels = []
   const { data } = cx.getImageData(0, 0, width, height)
 
-  function hex(n) {
-    return n.toString(16).padStart(2, '0')
-  }
+  const hex = (n) => n.toString(16).padStart(2, '0')
   for (let i = 0; i < data.length; i += 4) {
     const [r, g, b] = data.slice(i, i + 3)
     pixels.push('#' + hex(r) + hex(g) + hex(b))
@@ -393,3 +391,5 @@ const startPixelEditor = ({
   })
   return app.dom
 }
+
+module.exports = { updateState, startPixelEditor }

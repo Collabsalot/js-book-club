@@ -7,34 +7,38 @@ defineRequestType('note', (nest, content, source, done) => {
   done()
 })
 
-function storage(nest, name) {
-  return new Promise((resolve) => {
+const storage = (nest, name) =>
+  new Promise((resolve) => {
     nest.readStorage(name, (result) => resolve(result))
   })
-}
 
 const Timeout = class Timeout extends Error {}
 
-function request(nest, target, type, content) {
-  return new Promise((resolve, reject) => {
+const request = (nest, target, type, content) =>
+  new Promise((resolve, reject) => {
     let done = false
-    function attempt(n) {
+
+    const attempt = (n) => {
       nest.send(target, type, content, (failed, value) => {
         done = true
         if (failed) reject(failed)
         else resolve(value)
       })
       setTimeout(() => {
-        if (done) return
-        else if (n < 3) attempt(n + 1)
-        else reject(new Timeout('Timed out'))
+        if (!done) {
+          if (n < 3) {
+            attempt(n + 1)
+          } else {
+            reject(new Timeout('Timed out'))
+          }
+        }
       }, 250)
     }
+
     attempt(1)
   })
-}
 
-function requestType(name, handler) {
+const requestType = (name, handler) => {
   defineRequestType(name, (nest, content, source, callback) => {
     try {
       Promise.resolve(handler(nest, content, source)).then(
@@ -49,7 +53,7 @@ function requestType(name, handler) {
 
 requestType('ping', () => 'pong')
 
-function availableNeighbors(nest) {
+const availableNeighbors = (nest) => {
   const requests = nest.neighbors.map((neighbor) => {
     return request(nest, neighbor, 'ping').then(() => true, () => false)
   })
@@ -64,7 +68,7 @@ everywhere((nest) => {
   nest.state.gossip = []
 })
 
-function sendGossip(nest, message, exceptFor = null) {
+const sendGossip = (nest, message, exceptFor = null) => {
   nest.state.gossip.push(message)
   for (const neighbor of nest.neighbors) {
     if (neighbor === exceptFor) continue
@@ -78,16 +82,7 @@ requestType('gossip', (nest, message, source) => {
   sendGossip(nest, message, source)
 })
 
-requestType('connections', (nest, { name, neighbors }, source) => {
-  const connections = nest.state.connections
-  if (JSON.stringify(connections.get(name)) === JSON.stringify(neighbors)) {
-    return
-  }
-  connections.set(name, neighbors)
-  broadcastConnections(nest, name, source)
-})
-
-function broadcastConnections(nest, name, exceptFor = null) {
+const broadcastConnections = (nest, name, exceptFor = null) => {
   for (const neighbor of nest.neighbors) {
     if (neighbor === exceptFor) continue
     request(nest, neighbor, 'connections', {
@@ -97,13 +92,22 @@ function broadcastConnections(nest, name, exceptFor = null) {
   }
 }
 
+requestType('connections', (nest, { name, neighbors }, source) => {
+  const connections = nest.state.connections
+  if (JSON.stringify(connections.get(name)) === JSON.stringify(neighbors)) {
+    return
+  }
+  connections.set(name, neighbors)
+  broadcastConnections(nest, name, source)
+})
+
 everywhere((nest) => {
   nest.state.connections = new Map()
   nest.state.connections.set(nest.name, nest.neighbors)
   broadcastConnections(nest, nest.name)
 })
 
-function findRoute(from, to, connections) {
+const findRoute = (from, to, connections) => {
   const work = [{ at: from, via: null }]
   for (let i = 0; i < work.length; i++) {
     const { at, via } = work[i]
@@ -117,7 +121,7 @@ function findRoute(from, to, connections) {
   return null
 }
 
-function routeRequest(nest, target, type, content) {
+const routeRequest = (nest, target, type, content) => {
   if (nest.neighbors.includes(target)) {
     return request(nest, target, type, content)
   } else {
@@ -133,20 +137,9 @@ requestType('route', (nest, { target, type, content }) => {
 
 requestType('storage', (nest, name) => storage(nest, name))
 
-function findInStorage(nest, name) {
-  return storage(nest, name).then((found) => {
-    if (found != null) return found
-    else return findInRemoteStorage(nest, name)
-  })
-}
-
-function network(nest) {
-  return Array.from(nest.state.connections.keys())
-}
-
-function findInRemoteStorage(nest, name) {
+const findInRemoteStorage = (nest, name) => {
   let sources = network(nest).filter((n) => n !== nest.name)
-  function next() {
+  const next = () => {
     if (sources.length === 0) {
       return Promise.reject(new Error('Not found'))
     } else {
@@ -161,6 +154,14 @@ function findInRemoteStorage(nest, name) {
   return next()
 }
 
+const findInStorage = (nest, name) =>
+  storage(nest, name).then((found) => {
+    if (found != null) return found
+    else return findInRemoteStorage(nest, name)
+  })
+
+const network = (nest) => Array.from(nest.state.connections.keys())
+
 const Group = class Group {
   constructor() {
     this.members = []
@@ -171,12 +172,12 @@ const Group = class Group {
   }
 }
 
-function anyStorage(nest, source, name) {
+const anyStorage = (nest, source, name) => {
   if (source === nest.name) return storage(nest, name)
   else return routeRequest(nest, source, 'storage', name)
 }
 
-async function chicks(nest, year) {
+const chicks = async (nest, year) => {
   let list = ''
   await Promise.all(
     network(nest).map(async (name) => {
@@ -185,3 +186,5 @@ async function chicks(nest, year) {
   )
   return list
 }
+
+module.exports = { bigOak, availableNeighbors, findInStorage, Group, chicks }

@@ -1,6 +1,6 @@
 // test: no
 
-;(function() {
+;(() => {
   'use strict'
 
   let active = null
@@ -130,7 +130,7 @@
     }
   }
 
-  window.runRobotAnimation = function(worldState, robot, robotState) {
+  window.runRobotAnimation = (worldState, robot, robotState) => {
     if (active && active.timeout != null) {
       clearTimeout(active.timeout)
     }

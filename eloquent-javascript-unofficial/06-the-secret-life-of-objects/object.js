@@ -1,4 +1,4 @@
-function speak(line) {
+const speak = (line) => {
   console.log(`The ${this.type} rabbit says '${line}'`)
 }
 const whiteRabbit = { type: 'white', speak }
@@ -90,3 +90,12 @@ const SymmetricMatrix = class SymmetricMatrix extends Matrix {
 }
 
 const matrix = new SymmetricMatrix(5, (x, y) => `${x},${y}`)
+
+module.exports = {
+  whiteRabbit,
+  hungryRabbit,
+  killerRabbit,
+  blackRabbit,
+  toStringSymbol,
+  matrix,
+}

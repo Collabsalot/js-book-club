@@ -1,3 +1,5 @@
+const { scale } = require('./game')
+
 const results = [
   { name: 'Satisfied', count: 1043, color: 'lightblue' },
   { name: 'Neutral', count: 563, color: 'lightgreen' },
@@ -159,3 +161,5 @@ CanvasDisplay.prototype.drawActors = function(actors) {
     }
   }
 }
+
+module.exports = { results }
