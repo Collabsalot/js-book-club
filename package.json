@@ -11,6 +11,9 @@
   },
   "license": "GPL-3.0-or-later",
   "author": "Martin Rosenberg <Martin.B.Rosenberg@gmail.com> (https://martinbrosenberg.com)",
+  "workspaces": [
+    "eloquent-javascript-unofficial"
+  ],
   "scripts": {
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
