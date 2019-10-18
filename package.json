@@ -1,13 +1,13 @@
 {
   "name": "js-book-club",
   "private": true,
-  "homepage": "https://github.com/MartinRosenberg/js-book-club#readme",
+  "homepage": "https://github.com/BootcampersCollective/js-book-club#readme",
   "bugs": {
-    "url": "https://github.com/MartinRosenberg/js-book-club/issues"
+    "url": "https://github.com/BootcampersCollective/js-book-club/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MartinRosenberg/js-book-club.git"
+    "url": "git+https://github.com/BootcampersCollective/js-book-club.git"
   },
   "license": "GPL-3.0-or-later",
   "author": "Martin Rosenberg <Martin.B.Rosenberg@gmail.com> (https://martinbrosenberg.com)",
