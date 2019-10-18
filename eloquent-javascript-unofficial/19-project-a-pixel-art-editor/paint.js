@@ -1,20 +1,20 @@
 const Picture = class Picture {
-  constructor (width, height, pixels) {
+  constructor(width, height, pixels) {
     this.width = width
     this.height = height
     this.pixels = pixels
   }
 
-  static empty (width, height, color) {
+  static empty(width, height, color) {
     const pixels = new Array(width * height).fill(color)
     return new Picture(width, height, pixels)
   }
 
-  pixel (x, y) {
+  pixel(x, y) {
     return this.pixels[x + y * this.width]
   }
 
-  draw (pixels) {
+  draw(pixels) {
     const copy = this.pixels.slice()
     for (const { x, y, color } of pixels) {
       copy[x + y * this.width] = color
@@ -51,15 +51,15 @@ const drawPicture = (picture, canvas, scale) => {
 }
 
 const PictureCanvas = class PictureCanvas {
-  constructor (picture, pointerDown) {
+  constructor(picture, pointerDown) {
     this.dom = elt('canvas', {
-      onmousedown: event => this.mouse(event, pointerDown),
-      ontouchstart: event => this.touch(event, pointerDown),
+      onmousedown: (event) => this.mouse(event, pointerDown),
+      ontouchstart: (event) => this.touch(event, pointerDown),
     })
     this.syncState(picture)
   }
 
-  syncState (picture) {
+  syncState(picture) {
     if (this.picture === picture) return
     this.picture = picture
     drawPicture(this.picture, this.dom, scale)
@@ -74,12 +74,12 @@ const pointerPosition = (pos, domNode) => {
   }
 }
 
-PictureCanvas.prototype.mouse = function (downEvent, onDown) {
+PictureCanvas.prototype.mouse = function(downEvent, onDown) {
   if (downEvent.button !== 0) return
   let pos = pointerPosition(downEvent, this.dom)
   const onMove = onDown(pos)
   if (!onMove) return
-  const move = moveEvent => {
+  const move = (moveEvent) => {
     if (moveEvent.buttons === 0) {
       this.dom.removeEventListener('mousemove', move)
     } else {
@@ -92,15 +92,13 @@ PictureCanvas.prototype.mouse = function (downEvent, onDown) {
   this.dom.addEventListener('mousemove', move)
 }
 
-PictureCanvas.prototype.touch = function (startEvent,
-  onDown) {
+PictureCanvas.prototype.touch = function(startEvent, onDown) {
   let pos = pointerPosition(startEvent.touches[0], this.dom)
   const onMove = onDown(pos)
   startEvent.preventDefault()
   if (!onMove) return
-  const move = moveEvent => {
-    const newPos = pointerPosition(moveEvent.touches[0],
-      this.dom)
+  const move = (moveEvent) => {
+    const newPos = pointerPosition(moveEvent.touches[0], this.dom)
     if (newPos.x === pos.x && newPos.y === pos.y) return
     pos = newPos
     onMove(newPos)
@@ -114,23 +112,26 @@ PictureCanvas.prototype.touch = function (startEvent,
 }
 
 const PixelEditor = class PixelEditor {
-  constructor (state, config) {
+  constructor(state, config) {
     const { tools, controls, dispatch } = config
     this.state = state
 
-    this.canvas = new PictureCanvas(state.picture, pos => {
+    this.canvas = new PictureCanvas(state.picture, (pos) => {
       const tool = tools[this.state.tool]
       const onMove = tool(pos, this.state, dispatch)
-      if (onMove) return pos => onMove(pos, this.state)
+      if (onMove) return (pos) => onMove(pos, this.state)
     })
-    this.controls = controls.map(
-      Control => new Control(state, config))
-    this.dom = elt('div', {}, this.canvas.dom, elt('br'),
-      ...this.controls.reduce(
-        (a, c) => a.concat(' ', c.dom), []))
+    this.controls = controls.map((Control) => new Control(state, config))
+    this.dom = elt(
+      'div',
+      {},
+      this.canvas.dom,
+      elt('br'),
+      ...this.controls.reduce((a, c) => a.concat(' ', c.dom), []),
+    )
   }
 
-  syncState (state) {
+  syncState(state) {
     this.state = state
     this.canvas.syncState(state.picture)
     for (const ctrl of this.controls) ctrl.syncState(state)
@@ -138,20 +139,32 @@ const PixelEditor = class PixelEditor {
 }
 
 const ToolSelect = class ToolSelect {
-  constructor (state, { tools, dispatch }) {
-    this.select = elt('select', {
-      onchange: () => dispatch({ tool: this.select.value }),
-    }, ...Object.keys(tools).map(name => elt('option', {
-      selected: name === state.tool,
-    }, name)))
+  constructor(state, { tools, dispatch }) {
+    this.select = elt(
+      'select',
+      {
+        onchange: () => dispatch({ tool: this.select.value }),
+      },
+      ...Object.keys(tools).map((name) =>
+        elt(
+          'option',
+          {
+            selected: name === state.tool,
+          },
+          name,
+        ),
+      ),
+    )
     this.dom = elt('label', null, '🖌 Tool: ', this.select)
   }
 
-  syncState (state) { this.select.value = state.tool }
+  syncState(state) {
+    this.select.value = state.tool
+  }
 }
 
 const ColorSelect = class ColorSelect {
-  constructor (state, { dispatch }) {
+  constructor(state, { dispatch }) {
     this.input = elt('input', {
       type: 'color',
       value: state.color,
@@ -160,11 +173,13 @@ const ColorSelect = class ColorSelect {
     this.dom = elt('label', null, '🎨 Color: ', this.input)
   }
 
-  syncState (state) { this.input.value = state.color }
+  syncState(state) {
+    this.input.value = state.color
+  }
 }
 
 const draw = (pos, state, dispatch) => {
-  function drawPixel ({ x, y }, state) {
+  function drawPixel({ x, y }, state) {
     const drawn = { x, y, color: state.color }
     dispatch({ picture: state.picture.draw([drawn]) })
   }
@@ -173,7 +188,7 @@ const draw = (pos, state, dispatch) => {
 }
 
 const rectangle = (start, state, dispatch) => {
-  function drawRectangle (pos) {
+  function drawRectangle(pos) {
     const xStart = Math.min(start.x, pos.x)
     const yStart = Math.min(start.y, pos.y)
     const xEnd = Math.max(start.x, pos.x)
@@ -190,19 +205,28 @@ const rectangle = (start, state, dispatch) => {
   return drawRectangle
 }
 
-const around = [{ dx: -1, dy: 0 }, { dx: 1, dy: 0 },
-  { dx: 0, dy: -1 }, { dx: 0, dy: 1 }]
+const around = [
+  { dx: -1, dy: 0 },
+  { dx: 1, dy: 0 },
+  { dx: 0, dy: -1 },
+  { dx: 0, dy: 1 },
+]
 
 const fill = ({ x, y }, state, dispatch) => {
   const targetColor = state.picture.pixel(x, y)
   const drawn = [{ x, y, color: state.color }]
   for (let done = 0; done < drawn.length; done++) {
     for (const { dx, dy } of around) {
-      const x = drawn[done].x + dx; const y = drawn[done].y + dy
-      if (x >= 0 && x < state.picture.width &&
-        y >= 0 && y < state.picture.height &&
+      const x = drawn[done].x + dx
+      const y = drawn[done].y + dy
+      if (
+        x >= 0 &&
+        x < state.picture.width &&
+        y >= 0 &&
+        y < state.picture.height &&
         state.picture.pixel(x, y) === targetColor &&
-        !drawn.some(p => p.x === x && p.y === y)) {
+        !drawn.some((p) => p.x === x && p.y === y)
+      ) {
         drawn.push({ x, y, color: state.color })
       }
     }
@@ -215,14 +239,18 @@ const pick = (pos, state, dispatch) => {
 }
 
 const SaveButton = class SaveButton {
-  constructor (state) {
+  constructor(state) {
     this.picture = state.picture
-    this.dom = elt('button', {
-      onclick: () => this.save(),
-    }, '💾 Save')
+    this.dom = elt(
+      'button',
+      {
+        onclick: () => this.save(),
+      },
+      '💾 Save',
+    )
   }
 
-  save () {
+  save() {
     const canvas = elt('canvas')
     drawPicture(this.picture, canvas, 1)
     const link = elt('a', {
@@ -234,10 +262,12 @@ const SaveButton = class SaveButton {
     link.remove()
   }
 
-  syncState (state) { this.picture = state.picture }
+  syncState(state) {
+    this.picture = state.picture
+  }
 }
 
-const startLoad = dispatch => {
+const startLoad = (dispatch) => {
   const input = elt('input', {
     type: 'file',
     onchange: () => finishLoad(input.files[0], dispatch),
@@ -248,16 +278,20 @@ const startLoad = dispatch => {
 }
 
 const LoadButton = class LoadButton {
-  constructor (_, { dispatch }) {
-    this.dom = elt('button', {
-      onclick: () => startLoad(dispatch),
-    }, '📁 Load')
+  constructor(_, { dispatch }) {
+    this.dom = elt(
+      'button',
+      {
+        onclick: () => startLoad(dispatch),
+      },
+      '📁 Load',
+    )
   }
 
-  syncState () {}
+  syncState() {}
 }
 
-const pictureFromImage = image => {
+const pictureFromImage = (image) => {
   const width = Math.min(100, image.width)
   const height = Math.min(100, image.height)
   const canvas = elt('canvas', { width, height })
@@ -266,7 +300,7 @@ const pictureFromImage = image => {
   const pixels = []
   const { data } = cx.getImageData(0, 0, width, height)
 
-  function hex (n) {
+  function hex(n) {
     return n.toString(16).padStart(2, '0')
   }
   for (let i = 0; i < data.length; i += 4) {
@@ -281,9 +315,10 @@ const finishLoad = (file, dispatch) => {
   const reader = new FileReader()
   reader.addEventListener('load', () => {
     const image = elt('img', {
-      onload: () => dispatch({
-        picture: pictureFromImage(image),
-      }),
+      onload: () =>
+        dispatch({
+          picture: pictureFromImage(image),
+        }),
       src: reader.result,
     })
   })
@@ -298,8 +333,7 @@ const historyUpdateState = (state, action) => {
       done: state.done.slice(1),
       doneAt: 0,
     })
-  } else if (action.picture &&
-    state.doneAt < Date.now() - 1000) {
+  } else if (action.picture && state.doneAt < Date.now() - 1000) {
     return Object.assign({}, state, action, {
       done: [state.picture, ...state.done],
       doneAt: Date.now(),
@@ -310,14 +344,18 @@ const historyUpdateState = (state, action) => {
 }
 
 const UndoButton = class UndoButton {
-  constructor (state, { dispatch }) {
-    this.dom = elt('button', {
-      onclick: () => dispatch({ undo: true }),
-      disabled: state.done.length === 0,
-    }, '⮪ Undo')
+  constructor(state, { dispatch }) {
+    this.dom = elt(
+      'button',
+      {
+        onclick: () => dispatch({ undo: true }),
+        disabled: state.done.length === 0,
+      },
+      '⮪ Undo',
+    )
   }
 
-  syncState (state) {
+  syncState(state) {
     this.dom.disabled = state.done.length === 0
   }
 }
@@ -333,7 +371,11 @@ const startState = {
 const baseTools = { draw, fill, rectangle, pick }
 
 const baseControls = [
-  ToolSelect, ColorSelect, SaveButton, LoadButton, UndoButton,
+  ToolSelect,
+  ColorSelect,
+  SaveButton,
+  LoadButton,
+  UndoButton,
 ]
 
 const startPixelEditor = ({
@@ -344,7 +386,7 @@ const startPixelEditor = ({
   const app = new PixelEditor(state, {
     tools,
     controls,
-    dispatch (action) {
+    dispatch(action) {
       state = historyUpdateState(state, action)
       app.syncState(state)
     },

@@ -1,5 +1,6 @@
 // Generated from the Unicode 10 database and https://en.wikipedia.org/wiki/Script_(Unicode)
 
+/* eslint-disable prettier/prettier */
 const SCRIPTS = [
   {
     name: 'Adlam',
@@ -1114,8 +1115,17 @@ const SCRIPTS = [
     link: 'https://en.wikipedia.org/wiki/Mongolian_writing_systems#Horizontal_square_script',
   },
 ]
+/* eslint-enable prettier/prettier */
 
 // This makes sure the data is exported in node.js —
 // `require('./path/to/scripts.js')` will get you the array.
-if (typeof module !== 'undefined' && module.exports && (typeof window === 'undefined' || window.exports !== exports)) { module.exports = SCRIPTS }
-if (typeof global !== 'undefined' && !global.SCRIPTS) { global.SCRIPTS = SCRIPTS }
+if (
+  typeof module !== 'undefined' &&
+  module.exports &&
+  (typeof window === 'undefined' || window.exports !== exports)
+) {
+  module.exports = SCRIPTS
+}
+if (typeof global !== 'undefined' && !global.SCRIPTS) {
+  global.SCRIPTS = SCRIPTS
+}

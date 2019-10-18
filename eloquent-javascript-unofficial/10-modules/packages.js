@@ -14,7 +14,9 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-require.preload('ordinal', String.raw`
+require.preload(
+  'ordinal',
+  String.raw`
 function indicator (i) {
   var cent = i % 100
   if (cent >= 10 && cent <= 20) return 'th'
@@ -31,7 +33,8 @@ function ordinal (i) {
 }
 
 ordinal.indicator = indicator
-module.exports = ordinal`)
+module.exports = ordinal`,
+)
 
 /* date-names 0.1.11: https://github.com/martinandert/date-names
 
@@ -56,7 +59,9 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
-require.preload('date-names', String.raw`
+require.preload(
+  'date-names',
+  String.raw`
 module.exports = {
   __locale: "en",
   days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -65,7 +70,8 @@ module.exports = {
   abbreviated_months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   am: 'AM',
   pm: 'PM'
-};`)
+};`,
+)
 
 /* ini 1.3.5: https://github.com/npm/ini
 
@@ -85,7 +91,9 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
 IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-require.preload('ini', String.raw`exports.parse = exports.decode = decode
+require.preload(
+  'ini',
+  String.raw`exports.parse = exports.decode = decode
 
 exports.stringify = exports.encode = encode
 
@@ -278,7 +286,8 @@ function unsafe (val, doUnesc) {
     return unesc.trim()
   }
   return val
-}`)
+}`,
+)
 
 /* dijkstrajs 1.0.1: https://github.com/tcort/dijkstrajs/
 
@@ -300,7 +309,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE. */
 
-require.preload('dijkstrajs', String.raw`'use strict';
+require.preload(
+  'dijkstrajs',
+  String.raw`'use strict';
 
 var dijkstra = {
   single_source_shortest_paths: function(graph, s, d) {
@@ -442,7 +453,8 @@ var dijkstra = {
 // node.js module exports
 if (typeof module !== 'undefined') {
   module.exports = dijkstra;
-}`)
+}`,
+)
 
 /* random-item 1.0.0: https://github.com/sindresorhus/random-item
 
@@ -468,16 +480,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE. */
 
-require.preload('random-item', String.raw`'use strict';
+require.preload(
+  'random-item',
+  String.raw`'use strict';
 module.exports = function (arr) {
 	if (!Array.isArray(arr)) {
 		throw new TypeError('Expected an array');
 	}
 
 	return arr[Math.floor(Math.random() * arr.length)];
-};`)
+};`,
+)
 
-require.preload('./format-date', String.raw`const ordinal = require("ordinal");
+require.preload(
+  './format-date',
+  String.raw`const ordinal = require("ordinal");
 const {days, months} = require("date-names");
 
 exports.formatDate = function(date, format) {
@@ -489,9 +506,12 @@ exports.formatDate = function(date, format) {
     if (tag == "Do") return ordinal(date.getDate());
     if (tag == "dddd") return days[date.getDay()];
   });
-};`)
+};`,
+)
 
-require.preload('./graph', String.raw`exports.buildGraph = function(edges) {
+require.preload(
+  './graph',
+  String.raw`exports.buildGraph = function(edges) {
   let graph = Object.create(null);
   function addEdge(from, to) {
     if (!(from in graph)) graph[from] = Object.create(null);
@@ -502,4 +522,5 @@ require.preload('./graph', String.raw`exports.buildGraph = function(edges) {
     addEdge(to, from);
   }
   return graph;
-};`)
+};`,
+)

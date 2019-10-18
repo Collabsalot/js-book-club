@@ -1,18 +1,17 @@
 const { drawGraph, Vec } = require('./draw-layout')
 
 const GraphNode = class GraphNode {
-  constructor () {
-    this.pos = new Vec(Math.random() * 1000,
-      Math.random() * 1000)
+  constructor() {
+    this.pos = new Vec(Math.random() * 1000, Math.random() * 1000)
     this.edges = []
   }
 
-  connect (other) {
+  connect(other) {
     this.edges.push(other)
     other.edges.push(this)
   }
 
-  hasEdge (other) {
+  hasEdge(other) {
     return this.edges.includes(other)
   }
 }
@@ -34,7 +33,7 @@ const springStrength = 0.1
 
 const repulsionStrength = 1500
 
-const forceDirected_simple = graph => {
+const forceDirected_simple = (graph) => {
   for (const node of graph) {
     for (const other of graph) {
       if (other === node) continue
@@ -65,7 +64,7 @@ const runLayout = (implementation, graph) => {
   run(4000, 0)
 }
 
-const forceDirected_noRepeat = graph => {
+const forceDirected_noRepeat = (graph) => {
   for (let i = 0; i < graph.length; i++) {
     const node = graph[i]
     for (let j = i + 1; j < graph.length; j++) {
@@ -85,7 +84,7 @@ const forceDirected_noRepeat = graph => {
 
 const skipDistance = 175
 
-const forceDirected_skip = graph => {
+const forceDirected_skip = (graph) => {
   for (let i = 0; i < graph.length; i++) {
     const node = graph[i]
     for (let j = i + 1; j < graph.length; j++) {
@@ -105,14 +104,14 @@ const forceDirected_skip = graph => {
   }
 }
 
-GraphNode.prototype.hasEdgeFast = function (other) {
+GraphNode.prototype.hasEdgeFast = function(other) {
   for (let i = 0; i < this.edges.length; i++) {
     if (this.edges[i] === other) return true
   }
   return false
 }
 
-const forceDirected_hasEdgeFast = graph => {
+const forceDirected_hasEdgeFast = (graph) => {
   for (let i = 0; i < graph.length; i++) {
     const node = graph[i]
     for (let j = i + 1; j < graph.length; j++) {
@@ -132,7 +131,7 @@ const forceDirected_hasEdgeFast = graph => {
   }
 }
 
-const forceDirected_noVector = graph => {
+const forceDirected_noVector = (graph) => {
   for (let i = 0; i < graph.length; i++) {
     const node = graph[i]
     for (let j = i + 1; j < graph.length; j++) {
@@ -146,10 +145,12 @@ const forceDirected_noVector = graph => {
       if (hasEdge) {
         forceSize += (distance - springLength) * springStrength
       }
-      const forceX = apartX * forceSize / distance
-      const forceY = apartY * forceSize / distance
-      node.pos.x += forceX; node.pos.y += forceY
-      other.pos.x -= forceX; other.pos.y -= forceY
+      const forceX = (apartX * forceSize) / distance
+      const forceY = (apartY * forceSize) / distance
+      node.pos.x += forceX
+      node.pos.y += forceY
+      other.pos.x -= forceX
+      other.pos.y -= forceY
     }
   }
 }

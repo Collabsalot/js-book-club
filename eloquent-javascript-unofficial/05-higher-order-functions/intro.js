@@ -14,7 +14,7 @@ const range = (start, end, step) => {
   return array
 }
 
-const sum = array => {
+const sum = (array) => {
   let total = 0
   for (let i = 0; i < array.length; i++) {
     total += array[i]
@@ -22,7 +22,7 @@ const sum = array => {
   return total
 }
 
-const factorial = n => {
+const factorial = (n) => {
   if (n === 0) {
     return 1
   } else {

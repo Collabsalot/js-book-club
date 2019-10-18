@@ -1,23 +1,24 @@
 // The familiar Vec type.
 
 class Vec {
-  constructor (x, y) {
-    this.x = x; this.y = y
+  constructor(x, y) {
+    this.x = x
+    this.y = y
   }
 
-  plus (other) {
+  plus(other) {
     return new Vec(this.x + other.x, this.y + other.y)
   }
 
-  minus (other) {
+  minus(other) {
     return new Vec(this.x - other.x, this.y - other.y)
   }
 
-  times (factor) {
+  times(factor) {
     return new Vec(this.x * factor, this.y * factor)
   }
 
-  get length () {
+  get length() {
     return Math.sqrt(this.x * this.x + this.y * this.y)
   }
 }
@@ -29,7 +30,7 @@ class Vec {
 
 const nodeSize = 8
 
-const drawGraph = graph => {
+const drawGraph = (graph) => {
   let canvas = document.querySelector('canvas')
   if (!canvas) {
     canvas = document.body.appendChild(document.createElement('canvas'))
@@ -83,26 +84,27 @@ const drawGraph = graph => {
 // that the circles drawn around nodes’ center points don't get cut off.
 
 class Scale {
-  constructor (graph, width, height) {
-    const xs = graph.map(node => node.pos.x)
-    const ys = graph.map(node => node.pos.y)
+  constructor(graph, width, height) {
+    const xs = graph.map((node) => node.pos.x)
+    const ys = graph.map((node) => node.pos.y)
     const minX = Math.min(...xs)
     const minY = Math.min(...ys)
     const maxX = Math.max(...xs)
     const maxY = Math.max(...ys)
 
-    this.offsetX = minX; this.offsetY = minY
+    this.offsetX = minX
+    this.offsetY = minY
     this.scaleX = (width - 2 * nodeSize) / (maxX - minX)
     this.scaleY = (height - 2 * nodeSize) / (maxY - minY)
   }
 
   // The `x` and `y` methods convert from graph coordinates into
   // canvas coordinates.
-  x (x) {
+  x(x) {
     return this.scaleX * (x - this.offsetX) + nodeSize
   }
 
-  y (y) {
+  y(y) {
     return this.scaleY * (y - this.offsetY) + nodeSize
   }
 }

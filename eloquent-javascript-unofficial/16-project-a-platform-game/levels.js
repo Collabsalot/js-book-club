@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len,prettier/prettier */
 const GAME_LEVELS = [`                                                    
 ................................................................................
 ................................................................................
@@ -172,7 +172,15 @@ const GAME_LEVELS = [`
 ..................................................############################################################
 ..............................................................................................................
 `]
-/* eslint-enable max-len */
+/* eslint-enable max-len,prettier/prettier */
 
-if (typeof module !== 'undefined' && module.exports && (typeof window === 'undefined' || window.exports !== exports)) { module.exports = GAME_LEVELS }
-if (typeof global !== 'undefined' && !global.GAME_LEVELS) { global.GAME_LEVELS = GAME_LEVELS }
+if (
+  typeof module !== 'undefined' &&
+  module.exports &&
+  (typeof window === 'undefined' || window.exports !== exports)
+) {
+  module.exports = GAME_LEVELS
+}
+if (typeof global !== 'undefined' && !global.GAME_LEVELS) {
+  global.GAME_LEVELS = GAME_LEVELS
+}

@@ -1,11 +1,11 @@
-function parseExpression (program) {
+function parseExpression(program) {
   program = skipSpace(program)
   let match, expr
-  if (match = /^"([^"]*)"/.exec(program)) {
+  if ((match = /^"([^"]*)"/.exec(program))) {
     expr = { type: 'value', value: match[1] }
-  } else if (match = /^\d+\b/.exec(program)) {
+  } else if ((match = /^\d+\b/.exec(program))) {
     expr = { type: 'value', value: Number(match[0]) }
-  } else if (match = /^[^\s(),#"]+/.exec(program)) {
+  } else if ((match = /^[^\s(),#"]+/.exec(program))) {
     expr = { type: 'word', name: match[0] }
   } else {
     throw new SyntaxError('Unexpected syntax: ' + program)
@@ -14,13 +14,13 @@ function parseExpression (program) {
   return parseApply(expr, program.slice(match[0].length))
 }
 
-function skipSpace (string) {
+function skipSpace(string) {
   const first = string.search(/\S/)
   if (first === -1) return ''
   return string.slice(first)
 }
 
-function parseApply (expr, program) {
+function parseApply(expr, program) {
   program = skipSpace(program)
   if (program[0] !== '(') {
     return { expr: expr, rest: program }
@@ -41,7 +41,7 @@ function parseApply (expr, program) {
   return parseApply(expr, program.slice(1))
 }
 
-function parse (program) {
+function parse(program) {
   const { expr, rest } = parseExpression(program)
   if (skipSpace(rest).length > 0) {
     throw new SyntaxError('Unexpected text after program')
@@ -54,25 +54,23 @@ function parse (program) {
 
 const specialForms = Object.create(null)
 
-function evaluate (expr, scope) {
+function evaluate(expr, scope) {
   if (expr.type === 'value') {
     return expr.value
   } else if (expr.type === 'word') {
     if (expr.name in scope) {
       return scope[expr.name]
     } else {
-      throw new ReferenceError(
-        `Undefined binding: ${expr.name}`)
+      throw new ReferenceError(`Undefined binding: ${expr.name}`)
     }
   } else if (expr.type === 'apply') {
     const { operator, args } = expr
-    if (operator.type === 'word' &&
-      operator.name in specialForms) {
+    if (operator.type === 'word' && operator.name in specialForms) {
       return specialForms[operator.name](expr.args, scope)
     } else {
       const op = evaluate(operator, scope)
       if (typeof op === 'function') {
-        return op(...args.map(arg => evaluate(arg, scope)))
+        return op(...args.map((arg) => evaluate(arg, scope)))
       } else {
         throw new TypeError('Applying a non-function.')
       }
@@ -129,12 +127,12 @@ for (const op of ['+', '-', '*', '/', '==', '<', '>']) {
   topScope[op] = Function('a, b', `return a ${op} b;`)
 }
 
-topScope.print = value => {
+topScope.print = (value) => {
   console.log(value)
   return value
 }
 
-function run (program) {
+function run(program) {
   return evaluate(parse(program), Object.create(topScope))
 }
 
@@ -143,14 +141,14 @@ specialForms.fun = (args, scope) => {
     throw new SyntaxError('Functions need a body')
   }
   const body = args[args.length - 1]
-  const params = args.slice(0, args.length - 1).map(expr => {
+  const params = args.slice(0, args.length - 1).map((expr) => {
     if (expr.type !== 'word') {
       throw new SyntaxError('Parameter names must be words')
     }
     return expr.name
   })
 
-  return function () {
+  return function() {
     if (arguments.length !== params.length) {
       throw new TypeError('Wrong number of arguments')
     }

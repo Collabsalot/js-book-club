@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const roads = [
   "Alice's House-Bob's House", "Alice's House-Cabin",
   "Alice's House-Post Office", "Bob's House-Town Hall",
@@ -7,17 +8,18 @@ const roads = [
   'Marketplace-Post Office', 'Marketplace-Shop',
   'Marketplace-Town Hall', 'Shop-Town Hall',
 ]
+/* eslint-enable prettier/prettier */
 
-function buildGraph (edges) {
+function buildGraph(edges) {
   const graph = Object.create(null)
-  function addEdge (from, to) {
+  function addEdge(from, to) {
     if (graph[from] == null) {
       graph[from] = [to]
     } else {
       graph[from].push(to)
     }
   }
-  for (const [from, to] of edges.map(r => r.split('-'))) {
+  for (const [from, to] of edges.map((r) => r.split('-'))) {
     addEdge(from, to)
     addEdge(to, from)
   }
@@ -27,25 +29,27 @@ function buildGraph (edges) {
 const roadGraph = buildGraph(roads)
 
 const VillageState = class VillageState {
-  constructor (place, parcels) {
+  constructor(place, parcels) {
     this.place = place
     this.parcels = parcels
   }
 
-  move (destination) {
+  move(destination) {
     if (!roadGraph[this.place].includes(destination)) {
       return this
     } else {
-      const parcels = this.parcels.map(p => {
-        if (p.place !== this.place) return p
-        return { place: destination, address: p.address }
-      }).filter(p => p.place !== p.address)
+      const parcels = this.parcels
+        .map((p) => {
+          if (p.place !== this.place) return p
+          return { place: destination, address: p.address }
+        })
+        .filter((p) => p.place !== p.address)
       return new VillageState(destination, parcels)
     }
   }
 }
 
-function runRobot (state, robot, memory) {
+function runRobot(state, robot, memory) {
   for (let turn = 0; ; turn++) {
     if (state.parcels.length === 0) {
       console.log(`Done in ${turn} turns`)
@@ -58,16 +62,16 @@ function runRobot (state, robot, memory) {
   }
 }
 
-function randomPick (array) {
+function randomPick(array) {
   const choice = Math.floor(Math.random() * array.length)
   return array[choice]
 }
 
-function randomRobot (state) {
+function randomRobot(state) {
   return { direction: randomPick(roadGraph[state.place]) }
 }
 
-VillageState.random = function (parcelCount = 5) {
+VillageState.random = function(parcelCount = 5) {
   const parcels = []
   for (let i = 0; i < parcelCount; i++) {
     const address = randomPick(Object.keys(roadGraph))
@@ -80,34 +84,36 @@ VillageState.random = function (parcelCount = 5) {
   return new VillageState('Post Office', parcels)
 }
 
+/* eslint-disable prettier/prettier */
 const mailRoute = [
   "Alice's House", 'Cabin', "Alice's House", "Bob's House",
   'Town Hall', "Daria's House", "Ernie's House",
   "Grete's House", 'Shop', "Grete's House", 'Farm',
   'Marketplace', 'Post Office',
 ]
+/* eslint-enable prettier/prettier */
 
-function routeRobot (state, memory) {
+function routeRobot(state, memory) {
   if (memory.length === 0) {
     memory = mailRoute
   }
   return { direction: memory[0], memory: memory.slice(1) }
 }
 
-function findRoute (graph, from, to) {
+function findRoute(graph, from, to) {
   const work = [{ at: from, route: [] }]
   for (let i = 0; i < work.length; i++) {
     const { at, route } = work[i]
     for (const place of graph[at]) {
       if (place === to) return route.concat(place)
-      if (!work.some(w => w.at === place)) {
+      if (!work.some((w) => w.at === place)) {
         work.push({ at: place, route: route.concat(place) })
       }
     }
   }
 }
 
-function goalOrientedRobot ({ place, parcels }, route) {
+function goalOrientedRobot({ place, parcels }, route) {
   if (route.length === 0) {
     const parcel = parcels[0]
     if (parcel.place !== place) {
