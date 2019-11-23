@@ -5,10 +5,15 @@
 
 ## Agenda for 23 November 2019
 
-* Announcements
-  * Thanks to [Coffee at the Point](https://www.coffeeatthepoint.com/) for the venue sponsorship! Feel free to go buy food and drinks and support them supporting us.
-  * [60Hertz](https://www.60hertzenergy.com/) is hiring a Mid-Level Software Engineer - see the Slack channel.
-  * [CO.js](https://www.meetup.com/Bootcampers-Collective/events/ppmhlryzqbdb/) - 6:00-8:00pm on Monday, 6 December 2019 at Whole Foods. It's taking on a new format similar to Meet n Code.
+### Topic
+
+We'll try again to get through Chapters 4 ("Data Structures: Objects and Arrays") and 5 ("Higher-Order Functions") of _Eloquent JavaScript_.
+
+### Announcements
+
+* Thanks to [Coffee at the Point](https://www.coffeeatthepoint.com/) for the venue sponsorship! Feel free to go buy food and drinks and support them supporting us.
+* [60Hertz](https://www.60hertzenergy.com/) is hiring a Mid-Level Software Engineer - see the Slack channel.
+* [CO.js](https://www.meetup.com/Bootcampers-Collective/events/ppmhlryzqbdb/) - 6:00-8:00pm on Monday, 6 December 2019 at Whole Foods. It's taking on a new format similar to Meet n Code.
 * We need to figure out where to go and what to do for future meetups!
 
 ## Book
