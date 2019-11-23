@@ -13,7 +13,7 @@ We'll try again to get through Chapters 4 ("Data Structures: Objects and Arrays"
 
 * Thanks to [Coffee at the Point](https://www.coffeeatthepoint.com/) for the venue sponsorship! Feel free to go buy food and drinks and support them supporting us.
 * [60Hertz](https://www.60hertzenergy.com/) is hiring a Mid-Level Software Engineer - see the Slack channel.
-* [CO.js](https://www.meetup.com/Bootcampers-Collective/events/ppmhlryzqbdb/) - 6:00-8:00pm on Monday, 6 December 2019 at Whole Foods. It's taking on a new format similar to Meet n Code.
+* [Meet n Code Mondays](https://www.meetup.com/Bootcampers-Collective/events/ppmhlryzqbdb/) - 6:00-8:00pm on Monday, 6 December 2019 at Whole Foods.
 * We need to figure out where to go and what to do for future meetups!
 
 ## Book
