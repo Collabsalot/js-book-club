@@ -1,6 +1,6 @@
 {
   "projectName": "js-book-club",
-  "projectOwner": "MartinRosenberg",
+  "projectOwner": "BootcampersCollective",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -88,6 +88,15 @@
       "profile": "https://github.com/chuckb1789",
       "contributions": [
         "infra"
+      ]
+    },
+    {
+      "login": "catherine-o",
+      "name": "Catherine",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/50638796?v=4",
+      "profile": "https://catherineohara.dev/",
+      "contributions": [
+        "code"
       ]
     }
   ]
