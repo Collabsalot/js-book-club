@@ -10,11 +10,11 @@ const sum = (arr) => arr.reduce((acc, curr) => acc + curr, 0)
 const rangeBonus = (start, stop, step) => {
   let res = []
   if (step > 0) {
-    for (let i = start; i <= stop; i++) {
+    for (let i = start; i <= stop; i += step) {
       res.push(i)
     }
   } else {
-    for (let i = start; i >= stop; i--) {
+    for (let i = start; i >= stop; i += step) {
       res.push(i)
     }
   }
