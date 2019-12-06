@@ -3,15 +3,17 @@
 
 # JS Book Club
 
-## Agenda for 23 November 2019
+## Agenda for December 7<sup>th</sup> 2019
 
 ### Topic
 
-We'll try again to get through Chapters 4 ("Data Structures: Objects and Arrays") and 5 ("Higher-Order Functions") of _Eloquent JavaScript_.
+1. Intro to Chrome Developer Console
+
+2. Implementation of Native Javascript Array Methods
 
 ### Announcements
 
-* Thanks to [Coffee at the Point](https://www.coffeeatthepoint.com/) for the venue sponsorship! Feel free to go buy food and drinks and support them supporting us.
+* Thanks to [Galvanize](https://www.galvanize.com/) for venue sponsorship!
 * [60Hertz](https://www.60hertzenergy.com/) is hiring a Mid-Level Software Engineer - see the Slack channel.
 * [Meet n Code Mondays](https://www.meetup.com/Bootcampers-Collective/events/ppmhlryzqbdb/) - 6:00-8:00pm on Monday, 6 December 2019 at Whole Foods.
 * We need to figure out where to go and what to do for future meetups!
