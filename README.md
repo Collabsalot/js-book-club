@@ -3,7 +3,7 @@
 
 # JS Book Club
 
-## Agenda for December 7<sup>th</sup> 2019
+## Agenda for 7 December 2019
 
 ### Announcements
 
