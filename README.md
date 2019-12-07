@@ -9,9 +9,9 @@
 
 * Thanks to [Galvanize](https://www.galvanize.com/) for venue sponsorship, and to Andy for securing it!
 * Thanks to Andy, Martin, and Steve for food sponsorship!
-* [60Hertz](https://www.60hertzenergy.com/) is hiring a Mid-Level Software Engineer; message 
-* [Meet n Code Mondays](https://www.meetup.com/Bootcampers-Collective/events/ppmhlryzqbdb/) - 6:00-8:00pm on Monday, 6 December 2019 at Whole Foods.
 * If you're not in the Slack channel, [join the Bootcampers Collective Slack](http://slack.bootcamperscollective.com/), and open the [#js-book-club](https://bootcamperscollective.slack.com/archives/CPSC22NKD) channel.
+* [60Hertz](https://www.60hertzenergy.com/) is hiring a [Mid-Level Software Engineer](http://bit.ly/SE2at60h); message Martin Rosenberg on Denver Devs or Bootcampers Collective Slack for more information.
+* [Meet n Code Mondays](https://www.meetup.com/Bootcampers-Collective/events/ppmhlryzqbdb/) - 6:00-8:00pm on Monday, 6 December 2019 at Whole Foods.
 
 ### Topic
 
