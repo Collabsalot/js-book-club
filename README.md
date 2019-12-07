@@ -5,18 +5,18 @@
 
 ## Agenda for December 7<sup>th</sup> 2019
 
+### Announcements
+
+* Thanks to [Galvanize](https://www.galvanize.com/) for venue sponsorship, and to Andy for securing it!
+* Thanks to Andy, Martin, and Steve for food sponsorship!
+* [60Hertz](https://www.60hertzenergy.com/) is hiring a Mid-Level Software Engineer; message 
+* [Meet n Code Mondays](https://www.meetup.com/Bootcampers-Collective/events/ppmhlryzqbdb/) - 6:00-8:00pm on Monday, 6 December 2019 at Whole Foods.
+* If you're not in the Slack channel, [join the Bootcampers Collective Slack](http://slack.bootcamperscollective.com/), and open the [#js-book-club](https://bootcamperscollective.slack.com/archives/CPSC22NKD) channel.
+
 ### Topic
 
 1. Intro to Chrome Developer Console
-
-2. Implementation of Native Javascript Array Methods
-
-### Announcements
-
-* Thanks to [Galvanize](https://www.galvanize.com/) for venue sponsorship!
-* [60Hertz](https://www.60hertzenergy.com/) is hiring a Mid-Level Software Engineer - see the Slack channel.
-* [Meet n Code Mondays](https://www.meetup.com/Bootcampers-Collective/events/ppmhlryzqbdb/) - 6:00-8:00pm on Monday, 9 December 2019 at Whole Foods.
-* We need to figure out where to go and what to do for future meetups!
+2. Implementation of native JavaScript array methods
 
 ## Book
 
