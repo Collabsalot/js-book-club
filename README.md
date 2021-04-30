@@ -3,21 +3,6 @@
 
 # JS Book Club
 
-## Agenda for 7 December 2019
-
-### Announcements
-
-* Thanks to [Galvanize](https://www.galvanize.com/) for venue sponsorship, and to Andy for securing it!
-* Thanks to Andy, Martin, and Steve for food sponsorship!
-* If you're not in the Slack channel, [join the Bootcampers Collective Slack](http://slack.bootcamperscollective.com/), and open the [#js-book-club](https://bootcamperscollective.slack.com/archives/CPSC22NKD) channel.
-* [60Hertz](https://www.60hertzenergy.com/) is hiring a [Mid-Level Software Engineer](http://bit.ly/SE2at60h); message Martin Rosenberg on Denver Devs or Bootcampers Collective Slack for more information.
-* [Meet n Code Mondays](https://www.meetup.com/Bootcampers-Collective/events/ppmhlryzqbdb/) - 6:00-8:00pm on Monday, 6 December 2019 at Whole Foods.
-
-### Topic
-
-1. Intro to Chrome Developer Console
-2. Implementation of native JavaScript array methods
-
 ## Book
 
 We'll be reading [_Eloquent JavaScript_](https://eloquentjavascript.net/) by [Marijn Haverbeke](https://marijnhaverbeke.nl/). It's available in a [wide variety of formats](https://eloquentjavascript.net/#links), nearly all of them free:
